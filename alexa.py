@@ -79,18 +79,11 @@ def deploy_code_intent(intent, userid):
     speech_output = "Your code is being deployed. You can check the status via your Jenkins Blue Ocean pipeline page."
 
     try:
-        body='{
-        "request": {
-        "branch":"master"
-        }}'
-
-        curl -s -X POST \
-           -H "Content-Type: application/json" \
-           -H "Accept: application/json" \
-           -H "Travis-API-Version: 3" \
-           -H "Authorization: token TRAVIS_TOKEN" \
-           -d "$body" \
-           https://api.travis-ci.com/repo/SairamSunkaranam%multi-k8s/requests
+        headers = {"Content-type": "application/json", "Accept": "application/json", "Travis-API-Version": "3", "Authorization": "token jV2ThKHIgUOLYxZ0BvFDEw"}
+        conn = http.client.HTTPSConnection("api.travis-ci.org")
+        conn.request("POST", "/repo/SairamSunkaranam%2Fmulti-k8s/requests", headers=headers)
+        res = conn.getresponse()
+        conn.close()
     except ClientError as e:
         print(e.response['Error']['Message'])
 
