@@ -22,8 +22,8 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
         },
         'card': {
             'type': 'Simple',
-            'title': "k8s alexa - " + title,
-            'content': "k8s alexa - " + output
+            'title': "kube invoke - " + title,
+            'content': "kube invoke - " + output
         },
         'reprompt': {
             'outputSpeech': {
@@ -52,7 +52,7 @@ def get_welcome_response():
 
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome, to k8s alexa. I can launch your Jenkins pipeline. Start by saying, deploy my code."
+    speech_output = "Welcome, to kube invoke. I can launch your Jenkins pipeline. Start by saying, deploy my code."
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
     reprompt_text = "I can help with Continuous Integration and Continuous Deployment. Just say run my jenkins pipeline."
@@ -63,7 +63,7 @@ def get_welcome_response():
 
 def handle_session_end_request():
     card_title = "Session Ended"
-    speech_output = "Thank you for using k8s alexa. "
+    speech_output = "Thank you for using kube invoke. "
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return build_response({}, build_speechlet_response(
@@ -73,7 +73,7 @@ def handle_session_end_request():
 # deploys code
 def deploy_code_intent(intent, userid):
     session_attributes = {}
-    card_title = "k8s alex"
+    card_title = "kube invoke"
     reprompt_text = None
     should_end_session = True
     speech_output = "Your code is being deployed. You can check the status via your Jenkins Blue Ocean pipeline page."
