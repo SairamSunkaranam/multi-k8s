@@ -52,10 +52,10 @@ def get_welcome_response():
 
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome, to kube invoke. I can launch your Jenkins pipeline. Start by saying, deploy my code."
+    speech_output = "Welcome, to kube invoke. I can run the Travis yml file for you. Start by saying, deploy my code."
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "I can help with Continuous Integration and Continuous Deployment. Just say run my jenkins pipeline."
+    reprompt_text = "I can help with Continuous Integration and Continuous Deployment. Just say run my travis pipeline."
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -76,10 +76,10 @@ def deploy_code_intent(intent, userid):
     card_title = "kube invoke"
     reprompt_text = None
     should_end_session = True
-    speech_output = "Your code is being deployed. You can check the status via your Jenkins Blue Ocean pipeline page."
+    speech_output = "Your code is being deployed. You can check the status in you travis-org build page."
 
     try:
-        headers = {"Content-type": "application/json", "Accept": "application/json", "Travis-API-Version": "3", "Authorization": "token jV2ThKHIgUOLYxZ0BvFDEw"}
+        headers = {"Content-type": "application/json", "Accept": "application/json", "Travis-API-Version": "3", "Authorization": "token TRAVIS_TOKEN"}
         conn = http.client.HTTPSConnection("api.travis-ci.org")
         conn.request("POST", "/repo/SairamSunkaranam%2Fmulti-k8s/requests", headers=headers)
         res = conn.getresponse()
